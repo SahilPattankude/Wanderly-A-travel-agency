@@ -2,9 +2,63 @@
 
 import { motion } from "framer-motion";
 import { Star, ArrowUpRight } from "lucide-react";
-import { destinations } from "@/lib/data";
+import { destinations as fallbackDestinations, type Destination } from "@/lib/data";
+import { supabase } from "@/lib/supabase/client";
+import { useEffect, useState } from "react";
+
+type SupabaseDestination = {
+  id: string;
+  name: string;
+  country: string;
+  code: string;
+  image: string;
+  price_from: number;
+  rating: number;
+  reviews: number;
+  tag: string;
+  x: number;
+  y: number;
+};
+
+function toDestination(destination: SupabaseDestination): Destination {
+  return {
+    id: destination.id,
+    name: destination.name,
+    country: destination.country,
+    code: destination.code,
+    image: destination.image,
+    priceFrom: destination.price_from,
+    rating: destination.rating,
+    reviews: destination.reviews,
+    tag: destination.tag,
+    x: destination.x,
+    y: destination.y,
+  };
+}
 
 export default function PopularDestinations() {
+  const [destinations, setDestinations] = useState<Destination[]>(fallbackDestinations);
+
+  useEffect(() => {
+    async function loadDestinations() {
+      const { data, error } = await supabase
+        .from("destinations")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        console.error("Could not load Supabase destinations:", error.message);
+        return;
+      }
+
+      if (data && data.length > 0) {
+        setDestinations((data as SupabaseDestination[]).map(toDestination));
+      }
+    }
+
+    loadDestinations();
+  }, []);
+
   return (
     <section id="destinations" className="py-24 sm:py-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">

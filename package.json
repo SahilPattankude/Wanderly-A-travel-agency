@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "node scripts/check-db.mjs && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -11,11 +11,17 @@
   },
   "dependencies": {
     "@sanity/client": "^6.29.0",
+    "@supabase/ssr": "^0.12.4",
+    "@supabase/supabase-js": "^2.112.3",
     "framer-motion": "^11.3.19",
     "lucide-react": "^0.417.0",
     "next": "14.2.35",
+    "next-sanity": "^9.4.7",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-compiler-runtime": "^1.0.0",
+    "react-dom": "^18.3.1",
+    "sanity": "^3.45.0",
+    "styled-components": "^6.5.2"
   },
   "devDependencies": {
     "@types/node": "^20.14.14",

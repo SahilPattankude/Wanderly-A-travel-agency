@@ -5,8 +5,9 @@ import { schemaTypes } from "./schemaTypes";
 export default defineConfig({
   name: "wanderly",
   title: "Wanderly CMS",
-  projectId: process.env.SANITY_STUDIO_PROJECT_ID ?? "",
-  dataset: process.env.SANITY_STUDIO_DATASET ?? "production",
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? "",
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET ?? "production",
+  basePath: "/studio",
   plugins: [structureTool()],
   schema: { types: schemaTypes },
 });
