@@ -1,0 +1,11 @@
+{
+  "name": "wanderly-sanity-studio",
+  "private": true,
+  "scripts": {
+    "dev": "sanity dev",
+    "deploy": "sanity deploy"
+  },
+  "dependencies": {
+    "sanity": "3.99.0"
+  }
+}
