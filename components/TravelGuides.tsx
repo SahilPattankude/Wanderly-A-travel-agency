@@ -7,7 +7,8 @@ import { guides } from "@/lib/data";
 type Guide = (typeof guides)[number] & { href?: string };
 
 export default function TravelGuides({ publishedGuides }: { publishedGuides?: Guide[] }) {
-  const visibleGuides = publishedGuides && publishedGuides.length > 0 ? publishedGuides : guides;
+  const visibleGuides: Guide[] =
+    publishedGuides && publishedGuides.length > 0 ? publishedGuides : guides;
 
   return (
     <section id="guides" className="py-24 sm:py-28">
