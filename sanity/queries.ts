@@ -26,7 +26,9 @@ export type BlogPost = {
 const postFields = `
   _id,
   title,
-  "slug": slug.current,
+  // Use the document ID as a temporary URL fallback when a published post has
+  // an empty slug. This prevents the post from disappearing from the blog.
+  "slug": coalesce(slug.current, _id),
   excerpt,
   metaTitle,
   metaDescription,
@@ -38,10 +40,13 @@ const postFields = `
 
 export async function getAllPosts(): Promise<BlogPost[]> {
   if (!isSanityConfigured || !client) return [];
-  return client.fetch(`*[_type == "post" && defined(slug.current)] | order(publishedAt desc) {${postFields}}`);
+  return client.fetch(`*[_type == "post"] | order(publishedAt desc) {${postFields}}`);
 }
 
 export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
   if (!isSanityConfigured || !client) return null;
-  return client.fetch(`*[_type == "post" && slug.current == $slug][0] {${postFields}}`, { slug });
+  return client.fetch(
+    `*[_type == "post" && (slug.current == $slug || _id == $slug)][0] {${postFields}}`,
+    { slug }
+  );
 }
