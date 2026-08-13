@@ -10,6 +10,7 @@ export const client = projectId
       projectId,
       dataset,
       apiVersion: "2026-08-13",
-      useCdn: true,
+      // Bypass the CDN so Studio publications appear immediately.
+      useCdn: false,
     })
   : null;

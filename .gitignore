@@ -1,8 +1,18 @@
-node_modules/
-.next
-out
-.DS_Store
-*.log
+# Environment
 .env
-.env.*
-!.env.example
+.env.local
+.env.*.local
+
+# Next.js
+.next/
+out/
+
+# Node
+node_modules/
+
+# TypeScript
+*.tsbuildinfo
+
+# Sanity
+sanity/.sanity/
+sanity/dist/

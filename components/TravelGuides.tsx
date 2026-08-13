@@ -4,7 +4,11 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { guides } from "@/lib/data";
 
-export default function TravelGuides() {
+type Guide = (typeof guides)[number] & { href?: string };
+
+export default function TravelGuides({ publishedGuides }: { publishedGuides?: Guide[] }) {
+  const visibleGuides = publishedGuides && publishedGuides.length > 0 ? publishedGuides : guides;
+
   return (
     <section id="guides" className="py-24 sm:py-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
@@ -18,7 +22,7 @@ export default function TravelGuides() {
             </h2>
           </div>
           <a
-            href="#"
+            href="/blog"
             className="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold text-ocean-600 hover:text-ocean-700"
           >
             Visit the journal <ArrowUpRight className="h-4 w-4" />
@@ -26,9 +30,9 @@ export default function TravelGuides() {
         </div>
 
         <div className="mt-12 grid lg:grid-cols-3 gap-6">
-          {guides.map((g, i) => (
+          {visibleGuides.map((g, i) => (
             <motion.a
-              href="#"
+              href={g.href ?? "/blog"}
               key={g.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}

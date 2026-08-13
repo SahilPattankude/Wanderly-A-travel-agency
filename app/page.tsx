@@ -11,8 +11,23 @@ import Pricing from "@/components/Pricing";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
+import { getAllPosts } from "@/lib/blogs";
+import { guides } from "@/lib/data";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const posts = await getAllPosts();
+  const publishedGuides = posts.slice(0, 3).map((post, index) => ({
+    id: post._id,
+    title: post.title,
+    excerpt: post.excerpt,
+    image: guides[index % guides.length].image,
+    category: post.category,
+    readTime: post.readTime,
+    href: `/blog/${post.slug}`,
+  }));
+
   return (
     <>
       <Navbar />
@@ -23,7 +38,7 @@ export default function Home() {
         <HotelsActivities />
         <ItineraryBuilder />
         <Reviews />
-        <TravelGuides />
+        <TravelGuides publishedGuides={publishedGuides} />
         <Testimonials />
         <Pricing />
         <FAQ />

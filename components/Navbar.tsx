@@ -58,7 +58,13 @@ export default function Navbar() {
 
         <div className="hidden lg:flex items-center gap-3">
           <a
-            href="#signin"
+            href="/register"
+            className="text-sm font-semibold text-ink-600 hover:text-ocean-600 transition-colors px-3 py-2"
+          >
+            Register
+          </a>
+          <a
+            href="/sign-in"
             className="text-sm font-semibold text-ink-600 hover:text-ocean-600 transition-colors px-3 py-2"
           >
             Sign in
@@ -107,7 +113,15 @@ export default function Navbar() {
               ))}
               <li className="flex gap-3 pt-3">
                 <a
-                  href="#signin"
+                  href="/register"
+                  onClick={() => setOpen(false)}
+                  className="flex-1 text-center text-sm font-semibold text-ink-600 border border-ink-700/15 rounded-full py-2.5"
+                >
+                  Register
+                </a>
+                <a
+                  href="/sign-in"
+                  onClick={() => setOpen(false)}
                   className="flex-1 text-center text-sm font-semibold text-ink-600 border border-ink-700/15 rounded-full py-2.5"
                 >
                   Sign in

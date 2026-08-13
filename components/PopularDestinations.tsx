@@ -5,6 +5,7 @@ import { Star, ArrowUpRight } from "lucide-react";
 import { destinations as fallbackDestinations, type Destination } from "@/lib/data";
 import { supabase } from "@/lib/supabase/client";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 type SupabaseDestination = {
   id: string;
@@ -92,10 +93,13 @@ export default function PopularDestinations() {
               style={{ "--perf-left": "100%" } as React.CSSProperties}
             >
               <div className="relative h-56 overflow-hidden">
-                <img
+                <Image
                   src={d.image}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   alt={`${d.name}, ${d.country}`}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink-800/60 via-transparent to-transparent" />
                 <span className="absolute top-4 left-4 rounded-full bg-white/90 backdrop-blur px-3 py-1 text-[11px] font-semibold text-sunset-600">

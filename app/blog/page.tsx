@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllPosts } from "@/lib/blogs";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Travel Guides | Wanderly",
   description: "Practical destination guides and thoughtful trip-planning advice from Wanderly.",

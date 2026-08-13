@@ -70,9 +70,9 @@ export default function Footer() {
             © {new Date().getFullYear()} Wanderly. All rights reserved.
           </p>
           <div className="flex items-center gap-6 text-xs text-white/50">
-            <a href="#" className="hover:text-white transition-colors">Privacy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms</a>
-            <a href="#" className="hover:text-white transition-colors">Sitemap</a>
+            <a href="/privacy" className="hover:text-white transition-colors">Privacy</a>
+            <a href="/terms" className="hover:text-white transition-colors">Terms</a>
+            <a href="/sitemap.xml" className="hover:text-white transition-colors">Sitemap</a>
           </div>
         </div>
       </div>
