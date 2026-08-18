@@ -1,13 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, Star, ArrowUpRight } from "lucide-react";
 import { destinations } from "@/lib/data";
+import { destinationUpdatedEvent, readSelectedDestination, saveSelectedDestination } from "@/lib/trip";
 
 export default function InteractiveMap() {
   const [active, setActive] = useState(destinations[0].id);
   const activeDestination = destinations.find((d) => d.id === active)!;
+
+  useEffect(() => {
+    const syncDestination = () => {
+      const selected = readSelectedDestination();
+      if (selected && destinations.some((item) => item.id === selected.id)) setActive(selected.id);
+    };
+    syncDestination();
+    window.addEventListener(destinationUpdatedEvent, syncDestination);
+    return () => window.removeEventListener(destinationUpdatedEvent, syncDestination);
+  }, []);
 
   return (
     <section id="map" className="py-24 sm:py-28 bg-ocean-900 relative overflow-hidden">
@@ -66,7 +77,7 @@ export default function InteractiveMap() {
               <button
                 key={d.id}
                 type="button"
-                onClick={() => setActive(d.id)}
+                onClick={() => { setActive(d.id); saveSelectedDestination(d); }}
                 style={{ left: `${d.x}%`, top: `${d.y}%` }}
                 className="absolute -translate-x-1/2 -translate-y-1/2 group"
                 aria-pressed={active === d.id}

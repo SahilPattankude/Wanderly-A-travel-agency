@@ -9,6 +9,9 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: [
         "/studio/",
+        "/sign-in",
+        "/register",
+        "/bookings",
       ],
     },
     sitemap: `${baseUrl}/sitemap.xml`,

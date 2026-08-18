@@ -1,8 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Search, MapPin, CalendarDays, Users, Plane, ArrowRight } from "lucide-react";
+import { saveSelectedDestination, saveTripSearch } from "@/lib/trip";
+import { destinations } from "@/lib/data";
+import { motion, AnimatePresence } from "framer-motion";
 
 const stats = [
   { value: "2.4M+", label: "Trips planned" },
@@ -13,6 +15,57 @@ const stats = [
 export default function Hero() {
   const [from, setFrom] = useState("Mumbai (BOM)");
   const [to, setTo] = useState("Santorini (JTR)");
+  const [dates, setDates] = useState("12 – 19 Oct");
+  const [travelers, setTravelers] = useState("2 adults");
+  const [searchMessage, setSearchMessage] = useState("");
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  useEffect(() => {
+    if (!showDropdown) return;
+    const handleOutsideClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest(".destination-search-container")) {
+        setShowDropdown(false);
+      }
+    };
+    window.addEventListener("click", handleOutsideClick);
+    return () => window.removeEventListener("click", handleOutsideClick);
+  }, [showDropdown]);
+
+  const filteredDestinations = destinations.filter((item) => {
+    const term = to.toLowerCase();
+    // If it's a specific format e.g. "Santorini (JTR)" but they are typing "Santorini"
+    const parsedInput = term.split(" (")[0];
+    return (
+      item.name.toLowerCase().includes(parsedInput) ||
+      item.code.toLowerCase().includes(parsedInput) ||
+      item.country.toLowerCase().includes(parsedInput)
+    );
+  });
+
+  function handleSearch(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const destination = to.trim();
+    if (!destination) {
+      setSearchMessage("Enter a destination to start planning.");
+      return;
+    }
+
+    saveTripSearch({ from, to: destination, dates, travelers });
+    const matchingDestination = destinations.find((item) =>
+      `${item.name} ${item.code} ${item.country}`.toLowerCase().includes(destination.split(" (")[0].toLowerCase())
+    );
+    if (matchingDestination) {
+      saveSelectedDestination(matchingDestination);
+      setSearchMessage(`Showing trip ideas for ${matchingDestination.name}.`);
+    } else {
+      setSearchMessage(`Showing trip ideas for ${destination}.`);
+    }
+    setShowDropdown(false);
+    setTimeout(() => {
+      document.querySelector("#itinerary")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+  }
 
   return (
     <section id="top" className="relative overflow-hidden pt-32 pb-24 sm:pt-40 sm:pb-32">
@@ -83,7 +136,7 @@ export default function Hero() {
             className="mt-9 rounded-3xl bg-white shadow-lift p-2"
           >
             <form
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={handleSearch}
               className="flex flex-col sm:flex-row items-stretch gap-2"
             >
               <label className="flex-1 flex items-center gap-3 rounded-2xl px-4 py-3.5 hover:bg-sand-100/60 transition-colors">
@@ -105,20 +158,65 @@ export default function Hero() {
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </div>
 
-              <label className="flex-1 flex items-center gap-3 rounded-2xl px-4 py-3.5 hover:bg-sand-100/60 transition-colors">
-                <Plane className="h-5 w-5 text-sunset-500 shrink-0 -rotate-45" aria-hidden="true" />
-                <span className="w-full">
-                  <span className="block text-[11px] font-semibold uppercase tracking-wide text-ink-400">
-                    Destination
+              <div className="flex-1 relative destination-search-container">
+                <div
+                  className="flex h-full items-center gap-3 rounded-2xl px-4 py-3.5 hover:bg-sand-100/60 transition-colors"
+                >
+                  <Plane className="h-5 w-5 text-sunset-500 shrink-0 -rotate-45" aria-hidden="true" />
+                  <span className="w-full">
+                    <span className="block text-[11px] font-semibold uppercase tracking-wide text-ink-400">
+                      Destination
+                    </span>
+                    <input
+                      value={to}
+                      onChange={(e) => {
+                        setTo(e.target.value);
+                        setShowDropdown(true);
+                      }}
+                      onFocus={() => setShowDropdown(true)}
+                      className="w-full bg-transparent text-sm font-semibold text-ink-700 outline-none"
+                      aria-label="Destination city"
+                      placeholder="Search destination..."
+                    />
                   </span>
-                  <input
-                    value={to}
-                    onChange={(e) => setTo(e.target.value)}
-                    className="w-full bg-transparent text-sm font-semibold text-ink-700 outline-none"
-                    aria-label="Destination city"
-                  />
-                </span>
-              </label>
+                </div>
+
+                <AnimatePresence>
+                  {showDropdown && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      className="absolute left-0 right-0 mt-2 rounded-2xl bg-white shadow-lift border border-ink-700/5 p-2 z-30 max-h-60 overflow-y-auto"
+                    >
+                      {filteredDestinations.length > 0 ? (
+                        filteredDestinations.map((d) => (
+                          <button
+                            key={d.id}
+                            type="button"
+                            onClick={() => {
+                              setTo(`${d.name} (${d.code})`);
+                              saveSelectedDestination(d);
+                              setShowDropdown(false);
+                            }}
+                            className="w-full flex items-center justify-between rounded-xl px-3 py-2.5 text-sm text-ink-700 hover:bg-sand-100 transition-colors text-left"
+                          >
+                            <div>
+                              <span className="font-semibold block text-ink-750">{d.name}</span>
+                              <span className="text-xs text-ink-400">{d.country}</span>
+                            </div>
+                            <span className="route-code text-xs font-semibold text-ocean-600 bg-ocean-50 rounded-full px-2.5 py-1">
+                              {d.code}
+                            </span>
+                          </button>
+                        ))
+                      ) : (
+                        <p className="text-xs text-ink-405 p-3 text-center">No matching destinations</p>
+                      )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
 
               <label className="flex-1 flex items-center gap-3 rounded-2xl px-4 py-3.5 hover:bg-sand-100/60 transition-colors">
                 <CalendarDays className="h-5 w-5 text-forest-500 shrink-0" aria-hidden="true" />
@@ -128,7 +226,8 @@ export default function Hero() {
                   </span>
                   <input
                     type="text"
-                    defaultValue="12 – 19 Oct"
+                    value={dates}
+                    onChange={(event) => setDates(event.target.value)}
                     className="w-full bg-transparent text-sm font-semibold text-ink-700 outline-none"
                     aria-label="Travel dates"
                   />
@@ -143,7 +242,8 @@ export default function Hero() {
                   </span>
                   <input
                     type="text"
-                    defaultValue="2 adults"
+                    value={travelers}
+                    onChange={(event) => setTravelers(event.target.value)}
                     className="w-full bg-transparent text-sm font-semibold text-ink-700 outline-none"
                     aria-label="Number of travelers"
                   />
@@ -158,6 +258,11 @@ export default function Hero() {
                 <span>Search</span>
               </button>
             </form>
+            {searchMessage && (
+              <p role="status" className="px-4 pb-3 text-sm font-medium text-ocean-700">
+                {searchMessage}
+              </p>
+            )}
           </motion.div>
 
           <motion.dl

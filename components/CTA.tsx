@@ -38,7 +38,7 @@ export default function CTA() {
 
           <div className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-3">
             <a
-              href="#top"
+              href="/register"
               className="inline-flex items-center gap-2 rounded-full bg-white text-ocean-700 font-semibold px-7 py-3.5 hover:bg-sand-50 transition-colors"
             >
               Start planning free <ArrowRight className="h-4 w-4" />

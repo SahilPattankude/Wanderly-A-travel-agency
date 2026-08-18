@@ -4,6 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Terms of Service | Wanderly",
   description: "The terms that apply to use of Wanderly.",
+  alternates: { canonical: "/terms" },
 };
 
 export default function TermsPage() {

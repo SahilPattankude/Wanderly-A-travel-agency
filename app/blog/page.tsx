@@ -7,6 +7,12 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Travel Guides | Wanderly",
   description: "Practical destination guides and thoughtful trip-planning advice from Wanderly.",
+  alternates: { canonical: "/blog" },
+  openGraph: {
+    title: "Travel Guides | Wanderly",
+    description: "Practical destination guides and thoughtful trip-planning advice from Wanderly.",
+    url: "/blog",
+  },
 };
 
 export default async function BlogIndexPage() {

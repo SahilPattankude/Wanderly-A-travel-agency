@@ -10,7 +10,14 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const post = await getPostBySlug(params.slug);
   if (!post) return {};
-  return { title: post.metaTitle, description: post.metaDescription };
+  const title = post.metaTitle || post.title;
+  const description = post.metaDescription || post.excerpt;
+  return {
+    title,
+    description,
+    alternates: { canonical: `/blog/${params.slug}` },
+    openGraph: { type: "article", title, description, url: `/blog/${params.slug}` },
+  };
 }
 
 function ArticleBody({ blocks }: { blocks: PortableTextBlock[] }) {

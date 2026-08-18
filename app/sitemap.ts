@@ -1,7 +1,9 @@
 import type { MetadataRoute } from "next";
+import { getAllPosts } from "@/lib/blogs";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://wanderly-a-travel-agency.vercel.app";
+  const posts = await getAllPosts();
 
   return [
     {
@@ -20,5 +22,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/blog`,
       lastModified: new Date(),
     },
+    ...posts.map((post) => ({
+      url: `${baseUrl}/blog/${post.slug}`,
+      lastModified: new Date(),
+    })),
   ];
 }

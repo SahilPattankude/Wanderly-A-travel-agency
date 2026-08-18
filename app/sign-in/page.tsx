@@ -12,6 +12,10 @@ export default function SignInPage() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!supabase) {
+      setMessage("Sign in is not configured yet. Add the Supabase public environment variables to enable it.");
+      return;
+    }
     setIsSubmitting(true);
     setMessage("");
 
@@ -23,7 +27,8 @@ export default function SignInPage() {
       return;
     }
 
-    window.location.assign("/");
+    const next = new URLSearchParams(window.location.search).get("next");
+    window.location.assign(next && next.startsWith("/") ? next : "/");
   }
 
   return (

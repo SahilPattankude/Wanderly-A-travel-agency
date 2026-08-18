@@ -71,7 +71,7 @@ export default function Pricing() {
               </ul>
 
               <a
-                href="#itinerary"
+                href={plan.id === "concierge" ? "mailto:hello@wanderly.example?subject=Concierge%20trip%20planning" : "/register"}
                 className={`mt-8 inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition-colors ${
                   plan.highlighted
                     ? "bg-sunset-500 hover:bg-sunset-600 text-white"

@@ -6,6 +6,7 @@ import { destinations as fallbackDestinations, type Destination } from "@/lib/da
 import { supabase } from "@/lib/supabase/client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { saveSelectedDestination } from "@/lib/trip";
 
 type SupabaseDestination = {
   id: string;
@@ -42,6 +43,7 @@ export default function PopularDestinations() {
 
   useEffect(() => {
     async function loadDestinations() {
+      if (!supabase) return;
       const { data, error } = await supabase
         .from("destinations")
         .select("*")
@@ -84,6 +86,7 @@ export default function PopularDestinations() {
           {destinations.map((d, i) => (
             <motion.a
               href="#itinerary"
+              onClick={() => saveSelectedDestination(d)}
               key={d.id}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}

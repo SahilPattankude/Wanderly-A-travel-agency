@@ -3,19 +3,31 @@ import { Compass, Instagram, Twitter, Facebook, Youtube } from "lucide-react";
 const columns = [
   {
     title: "Explore",
-    links: ["Destinations", "Interactive map", "Travel guides", "Deals"],
+    links: [
+      ["Destinations", "/#destinations"], ["Interactive map", "/#map"],
+      ["Travel guides", "/blog"], ["Deals", "/#pricing"],
+    ],
   },
   {
     title: "Plan",
-    links: ["Itinerary builder", "Hotels", "Activities", "Group trips"],
+    links: [
+      ["Itinerary builder", "/#itinerary"], ["Hotels", "/#stays"],
+      ["Activities", "/#stays"], ["Group trips", "/register"],
+    ],
   },
   {
     title: "Company",
-    links: ["About Wanderly", "Careers", "Press", "Partners"],
+    links: [
+      ["About Wanderly", "#top"], ["Careers", "mailto:hello@wanderly.example?subject=Careers"],
+      ["Press", "mailto:hello@wanderly.example?subject=Press"], ["Partners", "mailto:hello@wanderly.example?subject=Partnership"],
+    ],
   },
   {
     title: "Support",
-    links: ["Help center", "Contact us", "Cancellation policy", "Trust & safety"],
+    links: [
+      ["Help center", "#faq"], ["Contact us", "mailto:hello@wanderly.example?subject=Support"],
+      ["Cancellation policy", "/terms"], ["Trust & safety", "/privacy"],
+    ],
   },
 ];
 
@@ -25,11 +37,17 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid sm:grid-cols-2 lg:grid-cols-6 gap-10">
           <div className="lg:col-span-2">
-            <a href="#top" className="flex items-center gap-2">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-sunset-500">
-                <Compass className="h-5 w-5 text-white" aria-hidden="true" />
+            <a href="#top" className="flex items-center gap-2 group">
+              <span className="relative flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-card overflow-hidden border border-ink-700/5">
+                <img
+                  src="/logo.png"
+                  alt=""
+                  className="absolute h-14 w-auto max-w-none object-top -top-0.5"
+                />
               </span>
-              <span className="font-display text-xl font-semibold">Wanderly</span>
+              <span className="font-display text-xl font-semibold text-white">
+                Wanderly
+              </span>
             </a>
             <p className="mt-4 text-sm text-white/60 max-w-xs">
               Discover, plan, and book your travel — all in one calm, considered
@@ -39,7 +57,7 @@ export default function Footer() {
               {[Instagram, Twitter, Facebook, Youtube].map((Icon, i) => (
                 <a
                   key={i}
-                  href="#"
+                  href="mailto:hello@wanderly.example?subject=Social%20media"
                   aria-label="Wanderly on social media"
                   className="h-9 w-9 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
                 >
@@ -53,10 +71,10 @@ export default function Footer() {
             <div key={col.title}>
               <h3 className="text-sm font-semibold text-white/90">{col.title}</h3>
               <ul className="mt-4 space-y-3">
-                {col.links.map((l) => (
-                  <li key={l}>
-                    <a href="#" className="text-sm text-white/60 hover:text-white transition-colors">
-                      {l}
+                {col.links.map(([label, href]) => (
+                  <li key={label}>
+                    <a href={href} className="text-sm text-white/60 hover:text-white transition-colors">
+                      {label}
                     </a>
                   </li>
                 ))}

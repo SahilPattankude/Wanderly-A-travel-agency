@@ -2,6 +2,20 @@ import fs from "node:fs";
 import path from "node:path";
 import { createClient } from "@sanity/client";
 
+// Helper to manually parse .env if it exists
+if (fs.existsSync(".env")) {
+  const envContent = fs.readFileSync(".env", "utf8");
+  envContent.split("\n").forEach((line) => {
+    const match = line.match(/^\s*([\w.-]+)\s*=\s*(.*)?\s*$/);
+    if (match) {
+      let val = match[2] || "";
+      if (val.startsWith('"') && val.endsWith('"')) val = val.slice(1, -1);
+      if (val.startsWith("'") && val.endsWith("'")) val = val.slice(1, -1);
+      process.env[match[1]] = val.trim();
+    }
+  });
+}
+
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET ?? "production";
 const token = process.env.SANITY_API_WRITE_TOKEN;
