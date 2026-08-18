@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, Quote, Plus, X } from "lucide-react";
@@ -32,7 +32,9 @@ export default function Reviews() {
     if (supabase) {
       supabase.auth.getUser().then(({ data: { user } }) => {
         if (user) {
-          setName(user.user_metadata?.full_name || user.email?.split("@")[0] || "");
+          setName(
+            user.user_metadata?.full_name || user.email?.split("@")[0] || "",
+          );
           setLocation("Wanderly member");
           if (user.user_metadata?.avatar_url) {
             setCurrentUserAvatar(user.user_metadata.avatar_url);
@@ -53,13 +55,18 @@ export default function Reviews() {
       trip,
       rating,
       text: text.trim(),
-      avatar: currentUserAvatar || `https://images.unsplash.com/photo-${1500000000000 + Math.floor(Math.random() * 100000)}?q=80&w=200&auto=format&fit=crop`,
+      avatar:
+        currentUserAvatar ||
+        `https://images.unsplash.com/photo-${1500000000000 + Math.floor(Math.random() * 100000)}?q=80&w=200&auto=format&fit=crop`,
     };
 
     const stored = window.localStorage.getItem("wanderly-reviews");
     const userList = stored ? JSON.parse(stored) : [];
     const updatedList = [newReview, ...userList];
-    window.localStorage.setItem("wanderly-reviews", JSON.stringify(updatedList));
+    window.localStorage.setItem(
+      "wanderly-reviews",
+      JSON.stringify(updatedList),
+    );
 
     setAllReviews([newReview, ...allReviews]);
     setSuccess("Thank you! Your review has been added successfully.");
@@ -86,7 +93,11 @@ export default function Reviews() {
             onClick={() => setFormOpen((v) => !v)}
             className="inline-flex items-center gap-2 rounded-full bg-ink-700 hover:bg-ink-800 text-white text-sm font-semibold px-5 py-3 transition-colors shadow-card"
           >
-            {formOpen ? <X className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+            {formOpen ? (
+              <X className="h-4 w-4" />
+            ) : (
+              <Plus className="h-4 w-4" />
+            )}
             {formOpen ? "Close form" : "Write a review"}
           </button>
         </div>
@@ -106,7 +117,13 @@ export default function Reviews() {
               >
                 <div className="sm:col-span-2 flex items-center gap-3 pb-3 border-b border-ink-700/5">
                   {currentUserAvatar ? (
-                    <img src={currentUserAvatar} alt="" className="h-10 w-10 rounded-full object-cover border border-sunset-500/20" />
+                    <Image
+                      src={currentUserAvatar}
+                      alt=""
+                      width={40}
+                      height={40}
+                      className="h-10 w-10 rounded-full object-cover border border-sunset-500/20"
+                    />
                   ) : (
                     <div className="h-10 w-10 rounded-full bg-sand-100 flex items-center justify-center text-ink-400 text-sm font-semibold border border-ink-700/5">
                       👤
@@ -116,10 +133,12 @@ export default function Reviews() {
                     <h3 className="font-display text-sm font-semibold text-ink-700">
                       Posting as {name || "Traveler"}
                     </h3>
-                    <p className="text-[11px] text-ink-400">Your profile picture will be shown next to your review.</p>
+                    <p className="text-[11px] text-ink-400">
+                      Your profile picture will be shown next to your review.
+                    </p>
                   </div>
                 </div>
-                
+
                 <label className="block text-xs font-semibold text-ink-500">
                   Your Name
                   <input
@@ -154,8 +173,12 @@ export default function Reviews() {
                     <option value="Kyoto, Japan">Kyoto, Japan</option>
                     <option value="Bali, Indonesia">Bali, Indonesia</option>
                     <option value="Banff, Canada">Banff, Canada</option>
-                    <option value="Marrakech, Morocco">Marrakech, Morocco</option>
-                    <option value="Patagonia, Argentina">Patagonia, Argentina</option>
+                    <option value="Marrakech, Morocco">
+                      Marrakech, Morocco
+                    </option>
+                    <option value="Patagonia, Argentina">
+                      Patagonia, Argentina
+                    </option>
                   </select>
                 </label>
 
@@ -207,7 +230,10 @@ export default function Reviews() {
         </AnimatePresence>
 
         {success && (
-          <p role="status" className="mt-6 text-sm font-semibold text-forest-600 bg-forest-50 border border-forest-100 rounded-2xl px-4 py-3 text-center">
+          <p
+            role="status"
+            className="mt-6 text-sm font-semibold text-forest-600 bg-forest-50 border border-forest-100 rounded-2xl px-4 py-3 text-center"
+          >
             {success}
           </p>
         )}
@@ -235,12 +261,16 @@ export default function Reviews() {
                   />
                 ))}
               </div>
-              <p className="mt-3 text-sm text-ink-600 flex-1">&ldquo;{r.text}&rdquo;</p>
+              <p className="mt-3 text-sm text-ink-600 flex-1">
+                &ldquo;{r.text}&rdquo;
+              </p>
 
               <div className="mt-5 flex items-center gap-3">
-                <img
+                <Image
                   src={r.avatar}
                   alt=""
+                  width={40}
+                  height={40}
                   className="h-10 w-10 rounded-full object-cover"
                 />
                 <div>

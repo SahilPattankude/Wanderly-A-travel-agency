@@ -3,8 +3,17 @@ import { client, isSanityConfigured } from "@/sanity/lib/client";
 export type PortableTextBlock = {
   _key: string;
   _type: "block";
-  children: { _key: string; _type: "span"; text: string; marks?: string[] }[];
-  markDefs?: { _key: string; _type: string; href?: string }[];
+  children: {
+    _key: string;
+    _type: "span";
+    text: string;
+    marks?: string[];
+  }[];
+  markDefs?: {
+    _key: string;
+    _type: string;
+    href?: string;
+  }[];
   style?: string;
   listItem?: "bullet" | "number";
   level?: number;
@@ -40,13 +49,44 @@ const postFields = `
 
 export async function getAllPosts(): Promise<BlogPost[]> {
   if (!isSanityConfigured || !client) return [];
-  return client.fetch(`*[_type == "post"] | order(publishedAt desc) {${postFields}}`);
+
+  return client.fetch(
+    `*[_type == "post"] | order(publishedAt desc) {${postFields}}`
+  );
 }
 
-export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
+export async function getPostBySlug(
+  slug: string
+): Promise<BlogPost | null> {
   if (!isSanityConfigured || !client) return null;
+
   return client.fetch(
     `*[_type == "post" && (slug.current == $slug || _id == $slug)][0] {${postFields}}`,
     { slug }
+  );
+}
+
+/**
+ * Get up to 3 blog posts from the same category,
+ * excluding the current blog post.
+ */
+export async function getRelatedPosts(
+  category: string,
+  currentId: string
+): Promise<BlogPost[]> {
+  if (!isSanityConfigured || !client) return [];
+
+  return client.fetch(
+    `*[
+      _type == "post" &&
+      category == $category &&
+      _id != $currentId
+    ] | order(publishedAt desc)[0...3] {
+      ${postFields}
+    }`,
+    {
+      category,
+      currentId,
+    }
   );
 }

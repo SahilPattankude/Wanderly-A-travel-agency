@@ -15,7 +15,6 @@ const mobileLinks = [
   { href: "/ai-planner", label: "✨ AI Planner" },
   { href: "/blog", label: "Travel Guides" },
   { href: "/bookings", label: "My bookings" },
-  
 ];
 
 const desktopLinks = [
@@ -24,7 +23,7 @@ const desktopLinks = [
   { href: "/#map", label: "Explore Map" },
   { href: "/#stays", label: "Stays & Activities" },
   { href: "/#itinerary", label: "Itinerary" },
-   { href: "/ai-planner", label: "✨ AI Planner" },
+  { href: "/ai-planner", label: "✨ AI Planner" },
   { href: "/blog", label: "Travel Guides" },
   { href: "/bookings", label: "My bookings" },
 ];
@@ -39,7 +38,7 @@ export default function Navbar() {
     const onScroll = () => setScrolled(window.scrollY > 12);
     onScroll();
     window.addEventListener("scroll", onScroll);
-    
+
     if (supabase) {
       // Fetch initial session
       supabase.auth.getSession().then(({ data: { session } }) => {
@@ -47,7 +46,9 @@ export default function Navbar() {
       });
 
       // Listen for auth state changes
-      const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      const {
+        data: { subscription },
+      } = supabase.auth.onAuthStateChange((event, session) => {
         setUser(session?.user ?? null);
         if (event === "SIGNED_OUT") {
           localStorage.removeItem("wanderly-bookings");
@@ -94,13 +95,17 @@ export default function Navbar() {
     window.location.assign("/");
   }
 
-  const displayName = user?.user_metadata?.full_name || user?.email?.split("@")[0] || "";
-  const truncatedName = displayName.length > 10 ? `${displayName.slice(0, 10)}...` : displayName;
+  const displayName =
+    user?.user_metadata?.full_name || user?.email?.split("@")[0] || "";
+  const truncatedName =
+    displayName.length > 10 ? `${displayName.slice(0, 10)}...` : displayName;
 
   return (
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-sand-50/90 backdrop-blur-md shadow-card" : "bg-transparent"
+        scrolled
+          ? "bg-sand-50/90 backdrop-blur-md shadow-card"
+          : "bg-transparent"
       }`}
     >
       <nav
@@ -149,9 +154,11 @@ export default function Navbar() {
               >
                 {user?.user_metadata?.avatar_url ? (
                   <span className="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-full ring-2 ring-ocean-100 transition-transform group-hover:scale-105">
-                    <img
+                    <Image
                       src={user.user_metadata.avatar_url}
                       alt=""
+                      width={32}
+                      height={32}
                       className="h-full w-full object-cover"
                     />
                   </span>
@@ -249,9 +256,11 @@ export default function Navbar() {
                     >
                       {user?.user_metadata?.avatar_url ? (
                         <span className="relative flex h-9 w-9 shrink-0 overflow-hidden rounded-full ring-2 ring-ocean-100">
-                          <img
+                          <Image
                             src={user.user_metadata.avatar_url}
                             alt=""
+                            width={36}
+                            height={36}
                             className="h-full w-full object-cover"
                           />
                         </span>
@@ -261,8 +270,12 @@ export default function Navbar() {
                         </span>
                       )}
                       <span className="min-w-0">
-                        <span className="block truncate text-sm font-semibold text-ink-700">{displayName}</span>
-                        <span className="block truncate text-xs text-ink-400">{user.email}</span>
+                        <span className="block truncate text-sm font-semibold text-ink-700">
+                          {displayName}
+                        </span>
+                        <span className="block truncate text-xs text-ink-400">
+                          {user.email}
+                        </span>
                       </span>
                     </button>
                     <AnimatePresence>
