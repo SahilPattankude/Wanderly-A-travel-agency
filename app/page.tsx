@@ -8,7 +8,6 @@ import ItineraryBuilder from "@/components/ItineraryBuilder";
 import Reviews from "@/components/Reviews";
 import TravelGuides from "@/components/TravelGuides";
 import Testimonials from "@/components/Testimonials";
-import Pricing from "@/components/Pricing";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
@@ -47,7 +46,6 @@ export default async function Home() {
         <Reviews />
         <TravelGuides publishedGuides={publishedGuides} />
         <Testimonials />
-        <Pricing />
         <FAQ />
         <CTA />
       </main>

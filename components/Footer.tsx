@@ -1,11 +1,12 @@
 import { Compass, Instagram, Twitter, Facebook, Youtube } from "lucide-react";
+import Image from "next/image";
 
 const columns = [
   {
     title: "Explore",
     links: [
       ["Destinations", "/#destinations"], ["Interactive map", "/#map"],
-      ["Travel guides", "/blog"], ["Deals", "/#pricing"],
+      ["Travel guides", "/blog"],
     ],
   },
   {
@@ -37,16 +38,18 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid sm:grid-cols-2 lg:grid-cols-6 gap-10">
           <div className="lg:col-span-2">
-            <a href="#top" className="flex items-center gap-2 group">
-              <span className="relative flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-card overflow-hidden border border-ink-700/5">
-                <img
+            <a href="#top" className="flex items-center gap-2.5 group">
+              <span className="relative flex h-11 w-11 items-center justify-center rounded-xl bg-white shadow-card overflow-hidden border border-ink-700/5">
+                <Image
                   src="/logo.png"
-                  alt=""
-                  className="absolute h-14 w-auto max-w-none object-top -top-0.5"
+                  alt="Wanderly Logo"
+                  width={44}
+                  height={44}
+                  className="object-cover"
                 />
               </span>
               <span className="font-display text-xl font-semibold text-white">
-                Wanderly
+                Wander<span className="text-ocean-300">ly</span>
               </span>
             </a>
             <p className="mt-4 text-sm text-white/60 max-w-xs">
@@ -88,6 +91,7 @@ export default function Footer() {
             © {new Date().getFullYear()} Wanderly. All rights reserved.
           </p>
           <div className="flex items-center gap-6 text-xs text-white/50">
+            <a href="/about" className="hover:text-white transition-colors">About Us</a>
             <a href="/privacy" className="hover:text-white transition-colors">Privacy</a>
             <a href="/terms" className="hover:text-white transition-colors">Terms</a>
             <a href="/sitemap.xml" className="hover:text-white transition-colors">Sitemap</a>

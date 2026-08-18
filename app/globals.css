@@ -2,12 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --font-fraunces: "Fraunces", serif;
-  --font-jakarta: "Plus Jakarta Sans", sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
-}
-
 html {
   scroll-behavior: smooth;
 }

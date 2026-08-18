@@ -4,22 +4,27 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Compass, Menu, UserRound, X } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
+import Image from "next/image";
 
 const mobileLinks = [
+  //  { href: "/", label: "Home" },
   { href: "/#destinations", label: "Destinations" },
   { href: "/#map", label: "Explore Map" },
   { href: "/#stays", label: "Hotels & Activities" },
   { href: "/#itinerary", label: "Itinerary Builder" },
+  { href: "/ai-planner", label: "✨ AI Planner" },
   { href: "/blog", label: "Travel Guides" },
-  { href: "/#pricing", label: "Pricing" },
   { href: "/bookings", label: "My bookings" },
+  
 ];
 
 const desktopLinks = [
+  //  { href: "/", label: "Home" },
   { href: "/#destinations", label: "Destinations" },
   { href: "/#map", label: "Explore Map" },
   { href: "/#stays", label: "Stays & Activities" },
   { href: "/#itinerary", label: "Itinerary" },
+   { href: "/ai-planner", label: "✨ AI Planner" },
   { href: "/blog", label: "Travel Guides" },
   { href: "/bookings", label: "My bookings" },
 ];
@@ -102,16 +107,19 @@ export default function Navbar() {
         aria-label="Primary"
         className="mx-auto max-w-7xl px-5 sm:px-8 flex items-center justify-between h-20"
       >
-        <a href="#top" className="flex items-center gap-2 group shrink-0">
-          <span className="relative flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-card overflow-hidden border border-ink-700/5">
-            <img
+        <a href="#top" className="flex items-center gap-2.5 group shrink-0">
+          <span className="relative flex h-11 w-11 items-center justify-center rounded-xl bg-white shadow-card overflow-hidden border border-ink-700/5">
+            <Image
               src="/logo.png"
-              alt=""
-              className="absolute h-14 w-auto max-w-none object-top -top-0.5"
+              alt="Wanderly Logo"
+              width={44}
+              height={44}
+              priority
+              className="object-cover"
             />
           </span>
           <span className="font-display text-xl font-semibold text-ink-700">
-            Wanderly
+            Wander<span className="text-ocean-500">ly</span>
           </span>
         </a>
 
