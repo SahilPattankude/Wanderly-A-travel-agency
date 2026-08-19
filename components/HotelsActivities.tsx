@@ -44,16 +44,13 @@ const availabilityCopy: Record<
 };
 
 export default function HotelsActivities() {
-  const [filter, setFilter] =
-    useState<(typeof filters)[number]>("All");
+  const [filter, setFilter] = useState<(typeof filters)[number]>("All");
 
   const [message, setMessage] = useState("");
   const [addedIds, setAddedIds] = useState<string[]>([]);
-  const [activeDestination, setActiveDestination] =
-    useState<any>(null);
+  const [activeDestination, setActiveDestination] = useState<any>(null);
 
-  const [showAllLocations, setShowAllLocations] =
-    useState(false);
+  const [showAllLocations, setShowAllLocations] = useState(false);
 
   useEffect(() => {
     const syncDestination = () => {
@@ -65,89 +62,52 @@ export default function HotelsActivities() {
       const selected = readSelectedDestination();
       const saved = readSavedTripItems(selected?.id);
 
-      setAddedIds(
-        saved.map((item) => item.id.replace("stay-", ""))
-      );
+      setAddedIds(saved.map((item) => item.id.replace("stay-", "")));
     };
 
     syncDestination();
     syncAdded();
 
-    window.addEventListener(
-      destinationUpdatedEvent,
-      syncDestination
-    );
+    window.addEventListener(destinationUpdatedEvent, syncDestination);
 
-    window.addEventListener(
-      destinationUpdatedEvent,
-      syncAdded
-    );
+    window.addEventListener(destinationUpdatedEvent, syncAdded);
 
-    window.addEventListener(
-      tripUpdatedEvent,
-      syncAdded
-    );
+    window.addEventListener(tripUpdatedEvent, syncAdded);
 
     return () => {
-      window.removeEventListener(
-        destinationUpdatedEvent,
-        syncDestination
-      );
+      window.removeEventListener(destinationUpdatedEvent, syncDestination);
 
-      window.removeEventListener(
-        destinationUpdatedEvent,
-        syncAdded
-      );
+      window.removeEventListener(destinationUpdatedEvent, syncAdded);
 
-      window.removeEventListener(
-        tripUpdatedEvent,
-        syncAdded
-      );
+      window.removeEventListener(tripUpdatedEvent, syncAdded);
     };
   }, []);
 
   useEffect(() => {
-    const saved = readSavedTripItems(
-      activeDestination?.id
-    );
+    const saved = readSavedTripItems(activeDestination?.id);
 
-    setAddedIds(
-      saved.map((item) => item.id.replace("stay-", ""))
-    );
+    setAddedIds(saved.map((item) => item.id.replace("stay-", "")));
   }, [activeDestination]);
 
   const visible = stays.filter((s) => {
-    const matchesType =
-      filter === "All" || s.type === filter;
+    const matchesType = filter === "All" || s.type === filter;
 
     const matchesLocation =
       !activeDestination ||
       showAllLocations ||
-      s.location
-        .toLowerCase()
-        .includes(activeDestination.name.toLowerCase());
+      s.location.toLowerCase().includes(activeDestination.name.toLowerCase());
 
     return matchesType && matchesLocation;
   });
 
   const displayedStays =
-    !activeDestination || showAllLocations
-      ? visible.slice(0, 6)
-      : visible;
+    !activeDestination || showAllLocations ? visible.slice(0, 6) : visible;
 
   function addToTrip(item: (typeof stays)[number]) {
-    const saved = readSavedTripItems(
-      activeDestination?.id
-    );
+    const saved = readSavedTripItems(activeDestination?.id);
 
-    if (
-      saved.some(
-        (savedItem) => savedItem.title === item.name
-      )
-    ) {
-      setMessage(
-        `${item.name} is already in your itinerary.`
-      );
+    if (saved.some((savedItem) => savedItem.title === item.name)) {
+      setMessage(`${item.name} is already in your itinerary.`);
       return;
     }
 
@@ -157,43 +117,29 @@ export default function HotelsActivities() {
         {
           id: `stay-${item.id}`,
           day: 2,
-          time:
-            item.type === "Hotel"
-              ? "15:00"
-              : "11:00",
+          time: item.type === "Hotel" ? "15:00" : "11:00",
           title: item.name,
           place: item.location,
         },
       ],
-      activeDestination?.id
+      activeDestination?.id,
     );
 
-    setAddedIds((current) => [
-      ...current,
-      item.id,
-    ]);
+    setAddedIds((current) => [...current, item.id]);
 
-    setMessage(
-      `${item.name} was added to Day 2 of your itinerary.`
-    );
+    setMessage(`${item.name} was added to Day 2 of your itinerary.`);
 
     window.setTimeout(() => {
-      document
-        .querySelector("#itinerary")
-        ?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
+      document.querySelector("#itinerary")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
     }, 150);
   }
 
   return (
-    <section
-      id="stays"
-      className="bg-sand-100/70 py-20 sm:py-24"
-    >
+    <section id="stays" className="bg-sand-100/70 py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-
         {/* Header */}
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
@@ -206,8 +152,8 @@ export default function HotelsActivities() {
             </h2>
 
             <p className="mt-3 max-w-xl text-sm leading-6 text-ink-500">
-              Handpicked hotels and activities with availability,
-              ratings and pricing — ready to add directly to your trip.
+              Handpicked hotels and activities with availability, ratings and
+              pricing — ready to add directly to your trip.
             </p>
 
             {activeDestination && (
@@ -221,9 +167,7 @@ export default function HotelsActivities() {
 
                 <button
                   type="button"
-                  onClick={() =>
-                    setShowAllLocations((v) => !v)
-                  }
+                  onClick={() => setShowAllLocations((v) => !v)}
                   className="rounded-full bg-white px-3 py-1 text-xs font-semibold text-ocean-600 shadow-sm transition-colors hover:bg-ocean-50"
                 >
                   {showAllLocations
@@ -261,12 +205,10 @@ export default function HotelsActivities() {
         {/* Cards */}
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {displayedStays.map((item, i) => {
-            const avail =
-              availabilityCopy[item.availability];
+            const avail = availabilityCopy[item.availability];
 
             const isAdded = addedIds.includes(item.id);
-            const isSoldOut =
-              item.availability === "soldout";
+            const isSoldOut = item.availability === "soldout";
 
             return (
               <motion.article
@@ -296,6 +238,7 @@ export default function HotelsActivities() {
                     alt={item.name}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    quality={60}
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
 
@@ -359,9 +302,7 @@ export default function HotelsActivities() {
                       <span
                         className={`h-1.5 w-1.5 rounded-full ${avail.dot}`}
                       />
-                      <span className={avail.text}>
-                        {avail.label}
-                      </span>
+                      <span className={avail.text}>{avail.label}</span>
                     </span>
                   </div>
 
@@ -372,9 +313,7 @@ export default function HotelsActivities() {
                   <div className="flex items-end justify-between gap-3">
                     <div>
                       <span className="block text-[10px] font-semibold uppercase tracking-wider text-ink-400">
-                        {item.type === "Hotel"
-                          ? "Per night"
-                          : "Per person"}
+                        {item.type === "Hotel" ? "Per night" : "Per person"}
                       </span>
 
                       <span className="mt-0.5 block font-display text-xl font-semibold text-ink-700">

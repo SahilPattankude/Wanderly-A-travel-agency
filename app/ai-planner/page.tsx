@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "AI Trip Planner | Create Personalized Itineraries | Wanderly",
   description:
     "Plan your next adventure with Wanderly's AI Trip Planner. Get personalized travel itineraries based on your destination, budget, interests, travel style, and trip duration.",
+  alternates: {
+    canonical: "https://wanderly-a-travel-agency.vercel.app/ai-planner",
+  },
 };
 
 const faqs = [
@@ -63,9 +66,9 @@ export default async function AIPlannerPage() {
           </h1>
 
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-gray-600">
-            Tell us your destination, budget, travel style, interests, and
-            trip duration. Wanderly AI creates a personalized day-by-day
-            itinerary designed around the way you want to travel.
+            Tell us your destination, budget, travel style, interests, and trip
+            duration. Wanderly AI creates a personalized day-by-day itinerary
+            designed around the way you want to travel.
           </p>
         </div>
       </section>

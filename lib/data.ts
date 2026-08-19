@@ -19,7 +19,7 @@ export const destinations: Destination[] = [
     country: "Greece",
     code: "JTR",
     image:
-      "https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=1200&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=1000&auto=format&fit=crop",
     priceFrom: 42000,
     rating: 4.9,
     reviews: 2312,
@@ -33,7 +33,7 @@ export const destinations: Destination[] = [
     country: "Japan",
     code: "UKY",
     image:
-      "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=1200&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=1000&auto=format&fit=crop",
     priceFrom: 58000,
     rating: 4.8,
     reviews: 4109,
@@ -47,7 +47,7 @@ export const destinations: Destination[] = [
     country: "Indonesia",
     code: "DPS",
     image:
-      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=1000&auto=format&fit=crop",
     priceFrom: 31000,
     rating: 4.7,
     reviews: 5820,
@@ -75,7 +75,7 @@ export const destinations: Destination[] = [
     country: "Morocco",
     code: "RAK",
     image:
-      "https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?q=80&w=1000&auto=format&fit=crop",
     priceFrom: 27000,
     rating: 4.6,
     reviews: 2984,
@@ -103,7 +103,7 @@ export const destinations: Destination[] = [
     country: "India",
     code: "BOM",
     image:
-      "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?q=80&w=1000&auto=format&fit=crop",
     priceFrom: 14500,
     rating: 4.8,
     reviews: 3124,
@@ -117,7 +117,7 @@ export const destinations: Destination[] = [
     country: "India",
     code: "PNQ",
     image:
-      "https://images.unsplash.com/photo-1595658658481-d53d3f999875?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1595658658481-d53d3f999875?q=80&w=1000&auto=format&fit=crop",
     priceFrom: 8500,
     rating: 4.7,
     reviews: 942,
@@ -159,7 +159,7 @@ export const destinations: Destination[] = [
     country: "India",
     code: "BLR",
     image:
-      "https://images.unsplash.com/photo-1596176530529-78163a4f7af2?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1596176530529-78163a4f7af2?q=80&w=1000&auto=format&fit=crop",
     priceFrom: 11000,
     rating: 4.7,
     reviews: 2341,
@@ -1068,10 +1068,7 @@ export type DefaultSuggestionItem = {
   place: string;
 };
 
-export const destinationSuggestions: Record<
-  string,
-  DefaultSuggestionItem[]
-> = {
+export const destinationSuggestions: Record<string, DefaultSuggestionItem[]> = {
   santorini: [
     {
       id: "santo-s1",

@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   publisher: "Wanderly",
 
   alternates: {
-    canonical: "/",
+    canonical: baseUrl,
   },
 
   openGraph: {

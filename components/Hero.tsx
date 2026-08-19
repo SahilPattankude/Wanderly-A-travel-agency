@@ -77,10 +77,7 @@ export default function Hero() {
       travelers,
     });
 
-    const searchTerm = destination
-      .split(" (")[0]
-      .trim()
-      .toLowerCase();
+    const searchTerm = destination.split(" (")[0].trim().toLowerCase();
 
     const matchingDestination = destinations.find((item) => {
       const searchableText =
@@ -92,9 +89,7 @@ export default function Hero() {
     if (matchingDestination) {
       saveSelectedDestination(matchingDestination);
 
-      setSearchMessage(
-        `Showing trip ideas for ${matchingDestination.name}.`
-      );
+      setSearchMessage(`Showing trip ideas for ${matchingDestination.name}.`);
     } else {
       setSearchMessage(`Showing trip ideas for ${destination}.`);
     }
@@ -102,12 +97,10 @@ export default function Hero() {
     setShowDropdown(false);
 
     setTimeout(() => {
-      document
-        .querySelector("#itinerary")
-        ?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
+      document.querySelector("#itinerary")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
     }, 100);
   }
 
@@ -151,7 +144,6 @@ export default function Hero() {
             Plan Your Perfect{" "}
             <span className="relative inline-block text-sunset-600">
               Journey
-
               <svg
                 className="absolute -bottom-2 left-0 w-full"
                 height="10"
@@ -175,8 +167,8 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-6 max-w-xl text-lg leading-8 text-ink-500"
           >
-            Discover destinations, explore them on an interactive map, and
-            build a personalized itinerary with real-time hotel and activity
+            Discover destinations, explore them on an interactive map, and build
+            a personalized itinerary with real-time hotel and activity
             availability — all in one calm, uncluttered place.
           </motion.p>
 
@@ -259,7 +251,7 @@ export default function Hero() {
                             type="button"
                             onClick={() => {
                               setTo(
-                                `${destination.name} (${destination.code})`
+                                `${destination.name} (${destination.code})`,
                               );
 
                               saveSelectedDestination(destination);
@@ -371,19 +363,14 @@ export default function Hero() {
                   {stat.value}
                 </dd>
 
-                <span className="text-xs text-ink-400">
-                  {stat.label}
-                </span>
+                <span className="text-xs text-ink-400">{stat.label}</span>
               </div>
             ))}
           </motion.dl>
         </div>
 
         {/* Signature flight-path visual */}
-        <div
-          className="relative h-[420px] sm:h-[480px]"
-          aria-hidden="true"
-        >
+        <div className="relative h-[420px] sm:h-[480px]" aria-hidden="true">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -391,8 +378,8 @@ export default function Hero() {
             className="absolute inset-0 overflow-hidden rounded-4xl shadow-lift"
           >
             <Image
-              src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1200&auto=format&fit=crop"
-              alt=""
+              src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1000&auto=format&fit=crop"
+              alt="Travel destination landscape"
               fill
               priority
               sizes="(max-width: 1024px) 100vw, 50vw"
@@ -419,19 +406,9 @@ export default function Hero() {
               className="animate-dash-move"
             />
 
-            <circle
-              cx="40"
-              cy="400"
-              r="6"
-              fill="#FF7A45"
-            />
+            <circle cx="40" cy="400" r="6" fill="#FF7A45" />
 
-            <circle
-              cx="360"
-              cy="40"
-              r="6"
-              fill="#17A6A1"
-            />
+            <circle cx="360" cy="40" r="6" fill="#17A6A1" />
           </svg>
 
           {/* Animated plane */}

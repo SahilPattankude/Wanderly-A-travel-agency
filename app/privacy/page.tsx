@@ -4,6 +4,9 @@ export const metadata: Metadata = {
   title: "Privacy Policy | Wanderly",
   description:
     "Learn how Wanderly collects, uses, stores, and protects your personal information.",
+  alternates: {
+    canonical: "https://wanderly-a-travel-agency.vercel.app/privacy",
+  },
 };
 
 export default function PrivacyPolicyPage() {
