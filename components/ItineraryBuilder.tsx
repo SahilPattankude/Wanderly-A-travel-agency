@@ -1346,7 +1346,7 @@ export default function ItineraryBuilder() {
                                   )
                                 }
                                 aria-label={`Remove ${item.title} from itinerary`}
-                                className="opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity text-ink-300 hover:text-sunset-600 shrink-0"
+                                className="opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity text-ink-300 hover:text-sunset-600 shrink-0 w-12 h-12 flex items-center justify-center"
                               >
                                 <Trash2 className="h-4 w-4" />
                               </button>
@@ -1465,7 +1465,7 @@ export default function ItineraryBuilder() {
 
                   <button
                     type="submit"
-                    className="rounded-full bg-ocean-500 hover:bg-ocean-600 text-white text-xs font-semibold px-4 py-2.5 transition-colors h-[38px] flex items-center justify-center gap-1 mt-1 sm:mt-0"
+                    className="rounded-full bg-ocean-500 hover:bg-ocean-600 text-white text-xs font-semibold px-5 py-3 transition-colors h-[48px] flex items-center justify-center gap-1 mt-1 sm:mt-0"
                   >
                     <Plus className="h-3.5 w-3.5" />
                     Add
@@ -1565,7 +1565,7 @@ export default function ItineraryBuilder() {
                             )
                           }
                           aria-label={`Add ${s.title} to itinerary`}
-                          className="shrink-0 h-8 w-8 flex items-center justify-center rounded-full bg-ocean-500 hover:bg-ocean-600 text-white transition-colors"
+                          className="shrink-0 h-12 w-12 flex items-center justify-center rounded-full bg-ocean-500 hover:bg-ocean-600 text-white transition-colors"
                         >
                           <Plus className="h-4 w-4" />
                         </button>

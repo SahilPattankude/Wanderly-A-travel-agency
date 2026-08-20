@@ -148,7 +148,7 @@ export default function Reviews() {
           <button
             type="button"
             onClick={() => setFormOpen((value) => !value)}
-            className="inline-flex items-center gap-2 rounded-full bg-ink-700 px-5 py-3 text-sm font-semibold text-white shadow-card transition-colors hover:bg-ink-800"
+            className="inline-flex items-center gap-2 rounded-full bg-ink-700 px-5 py-3.5 text-sm font-semibold text-white shadow-card transition-colors hover:bg-ink-800"
           >
             {formOpen ? (
               <X className="h-4 w-4" />

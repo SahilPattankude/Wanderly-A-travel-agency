@@ -168,7 +168,7 @@ export default function HotelsActivities() {
                 <button
                   type="button"
                   onClick={() => setShowAllLocations((v) => !v)}
-                  className="rounded-full bg-white px-3 py-1 text-xs font-semibold text-ocean-600 shadow-sm transition-colors hover:bg-ocean-50"
+                  className="rounded-full bg-white px-4 py-3 text-xs font-semibold text-ocean-600 shadow-sm transition-colors hover:bg-ocean-50"
                 >
                   {showAllLocations
                     ? `Only ${activeDestination.name}`
@@ -190,7 +190,7 @@ export default function HotelsActivities() {
                 type="button"
                 onClick={() => setFilter(f)}
                 aria-pressed={filter === f}
-                className={`rounded-full px-4 py-2 text-xs font-semibold transition-all sm:text-sm ${
+                className={`rounded-full px-5 py-3 text-xs font-semibold transition-all sm:text-sm ${
                   filter === f
                     ? "bg-ocean-500 text-white shadow-sm"
                     : "text-ink-500 hover:bg-ocean-50 hover:text-ocean-600"
@@ -325,7 +325,7 @@ export default function HotelsActivities() {
                       type="button"
                       disabled={isSoldOut || isAdded}
                       onClick={() => addToTrip(item)}
-                      className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2.5 text-xs font-semibold transition-all ${
+                      className={`inline-flex items-center gap-1.5 rounded-full px-5 py-3.5 text-xs font-semibold transition-all ${
                         isAdded
                           ? "bg-forest-50 text-forest-600"
                           : isSoldOut

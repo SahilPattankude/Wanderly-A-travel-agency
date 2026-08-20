@@ -120,12 +120,12 @@ export default function InteractiveMap() {
                   left: `${destination.x}%`,
                   top: `${destination.y}%`,
                 }}
-                className="group absolute -translate-x-1/2 -translate-y-1/2"
+                className="group absolute -translate-x-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center"
                 aria-pressed={active === destination.id}
                 aria-label={`Preview ${destination.name}, ${destination.country}`}
               >
                 <span
-                  className={`absolute inset-0 -m-2 rounded-full ${
+                  className={`absolute inset-2 rounded-full ${
                     active === destination.id
                       ? "bg-sunset-500/40"
                       : "bg-teal-400/30"
@@ -238,7 +238,7 @@ export default function InteractiveMap() {
 
                   <a
                     href="#itinerary"
-                    className="inline-flex items-center gap-1.5 rounded-full bg-ink-700 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-ink-800"
+                    className="inline-flex items-center gap-1.5 rounded-full bg-ink-700 px-4 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-ink-800"
                   >
                     Build itinerary
 

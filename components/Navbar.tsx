@@ -215,7 +215,7 @@ export default function Navbar() {
 
         <button
           type="button"
-          className="lg:hidden inline-flex items-center justify-center rounded-full p-2 text-ink-700 hover:bg-ink-700/5 shrink-0"
+          className="lg:hidden inline-flex items-center justify-center rounded-full text-ink-700 hover:bg-ink-700/5 shrink-0 w-12 h-12"
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label={open ? "Close menu" : "Open menu"}
@@ -254,7 +254,9 @@ export default function Navbar() {
                       type="button"
                       onClick={() => setProfileOpen((value) => !value)}
                       aria-expanded={profileOpen}
-                      className="flex w-full items-center gap-3 rounded-xl px-1 py-1 text-left"
+                      aria-haspopup="menu"
+                      aria-controls="mobile-profile-menu"
+                      className="flex w-full items-center gap-3 rounded-xl px-2 py-2 text-left"
                     >
                       {user?.user_metadata?.avatar_url ? (
                         <span className="relative flex h-9 w-9 shrink-0 overflow-hidden rounded-full ring-2 ring-ocean-100">
@@ -282,20 +284,27 @@ export default function Navbar() {
                     </button>
                     <AnimatePresence>
                       {profileOpen && (
-                        <motion.button
-                          type="button"
+                        <motion.div
+                          id="mobile-profile-menu"
+                          role="menu"
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.16 }}
-                          onClick={() => {
-                            setOpen(false);
-                            handleSignOut();
-                          }}
-                          className="mt-1 w-full overflow-hidden rounded-xl bg-sunset-500 px-3 py-2 text-sm font-semibold text-white transition-colors hover:bg-sunset-600"
+                          className="mt-1 w-full overflow-hidden rounded-xl"
                         >
-                          Sign out
-                        </motion.button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setOpen(false);
+                              handleSignOut();
+                            }}
+                            role="menuitem"
+                            className="w-full bg-sunset-500 px-3 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-sunset-600"
+                          >
+                            Sign out
+                          </button>
+                        </motion.div>
                       )}
                     </AnimatePresence>
                   </div>
@@ -304,14 +313,14 @@ export default function Navbar() {
                     <a
                       href="/register"
                       onClick={() => setOpen(false)}
-                      className="flex-1 rounded-full border border-ocean-500/30 bg-ocean-50 py-2.5 text-center text-sm font-semibold text-ocean-700 transition-colors hover:border-ocean-500 hover:bg-ocean-100"
+                      className="flex-1 rounded-full border border-ocean-500/30 bg-ocean-50 py-3.5 text-center text-sm font-semibold text-ocean-700 transition-colors hover:border-ocean-500 hover:bg-ocean-100 flex items-center justify-center min-h-[48px]"
                     >
                       Register
                     </a>
                     <a
                       href="/sign-in"
                       onClick={() => setOpen(false)}
-                      className="flex-1 rounded-full bg-sunset-500 py-2.5 text-center text-sm font-semibold text-white shadow-card transition-colors hover:bg-sunset-600"
+                      className="flex-1 rounded-full bg-sunset-500 py-3.5 text-center text-sm font-semibold text-white shadow-card transition-colors hover:bg-sunset-600 flex items-center justify-center min-h-[48px]"
                     >
                       Sign in
                     </a>
