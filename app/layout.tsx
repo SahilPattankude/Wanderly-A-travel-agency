@@ -9,6 +9,8 @@ import "./globals.css";
 
 const baseUrl = "https://wanderly-a-travel-agency.vercel.app";
 
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+
 const fraunces = Fraunces({
   subsets: ["latin"],
   variable: "--font-fraunces",
@@ -107,19 +109,23 @@ export default function RootLayout({
     >
       <body>
         {/* Google Analytics */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-1Z6K18KW3Q"
-          strategy="afterInteractive"
-        />
+        {GA_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              strategy="afterInteractive"
+            />
 
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){window.dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-1Z6K18KW3Q');
-          `}
-        </Script>
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){window.dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_ID}');
+              `}
+            </Script>
+          </>
+        )}
 
         {/* Skip to main content */}
         <a
