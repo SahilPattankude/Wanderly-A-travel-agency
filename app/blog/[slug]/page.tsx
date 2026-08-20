@@ -13,6 +13,26 @@ const baseUrl = "https://wanderly-a-travel-agency.vercel.app";
 
 export const dynamic = "force-dynamic";
 
+/**
+ * Optimize title for SEO: 50-60 characters (brand added by root layout template)
+ */
+function optimizeTitle(rawTitle: string): string {
+  const maxLen = 60; // template adds " | Wanderly" (10 chars) → keep page part ≤ 50
+
+  // If already has brand, remove it first
+  let title = rawTitle.replace(/\s*\|\s*Wanderly$/, "").trim();
+
+  // If within range (≤ 50 for page part), return as-is
+  if (title.length <= maxLen - 10) {
+    return title;
+  }
+
+  // Too long → truncate at word boundary + ellipsis
+  const available = maxLen - 10 - 1; // reserve space for ellipsis
+  const truncated = title.slice(0, available).replace(/\s+\S*$/, "");
+  return (truncated || title.slice(0, available)) + "…";
+}
+
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
@@ -20,7 +40,8 @@ export async function generateMetadata({
 
   if (!post) return {};
 
-  const title = post.metaTitle || post.title;
+  const rawTitle = post.metaTitle || post.title;
+  const title = optimizeTitle(rawTitle);
   const description = post.metaDescription || post.excerpt;
 
   return {

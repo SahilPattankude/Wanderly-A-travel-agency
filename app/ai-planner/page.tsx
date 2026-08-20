@@ -2,13 +2,54 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import AITripPlanner from "@/components/AITripPlanner";
 import { getAllPosts } from "@/sanity/queries";
+import StructuredData from "@/components/StructuredData";
+import type { FAQItem } from "@/lib/trip";
+
+/**
+ * Optimize title for SEO: 50-60 characters (brand added by root layout template)
+ */
+function optimizeTitle(rawTitle: string): string {
+  const maxLen = 60; // template adds " | Wanderly" (10 chars) → keep page part ≤ 50
+
+  // If already has brand, remove it first
+  let title = rawTitle.replace(/\s*\|\s*Wanderly$/, "").trim();
+
+  // If within range (≤ 50 for page part), return as-is
+  if (title.length <= maxLen - 10) {
+    return title;
+  }
+
+  // Too long → truncate at word boundary + ellipsis
+  const available = maxLen - 10 - 1; // reserve space for ellipsis
+  const truncated = title.slice(0, available).replace(/\s+\S*$/, "");
+  return (truncated || title.slice(0, available)) + "…";
+}
+
+const rawTitle = "AI Trip Planner | Create Personalized Itineraries";
+const optimizedTitle = optimizeTitle(rawTitle);
+
+// Meta description: 150-160 chars for optimal SERP display (156 chars)
+const metaDescription =
+  "Create custom travel itineraries with Wanderly's AI Trip Planner. Personalized day-by-day plans for your destination, budget, interests, and travel style.";
 
 export const metadata: Metadata = {
-  title: "AI Trip Planner | Create Personalized Itineraries | Wanderly",
-  description:
-    "Plan your next adventure with Wanderly's AI Trip Planner. Get personalized travel itineraries based on your destination, budget, interests, travel style, and trip duration.",
+  title: optimizedTitle,
+  description: metaDescription,
   alternates: {
     canonical: "https://wanderly-a-travel-agency.vercel.app/ai-planner",
+  },
+  openGraph: {
+    title: optimizedTitle,
+    description: metaDescription,
+    url: "https://wanderly-a-travel-agency.vercel.app/ai-planner",
+    siteName: "Wanderly",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: optimizedTitle,
+    description: metaDescription,
   },
 };
 
@@ -42,8 +83,21 @@ export default async function AIPlannerPage() {
   // Show the 3 most recent travel guides
   const travelGuides = posts.slice(0, 3);
 
+  const pageUrl = "https://wanderly-a-travel-agency.vercel.app/ai-planner";
+  const pageTitle = "AI Trip Planner | Create Personalized Itineraries | Wanderly";
+  const pageDescription =
+    "Plan your next adventure with Wanderly's AI Trip Planner. Get personalized travel itineraries based on your destination, budget, interests, travel style, and trip duration.";
+
   return (
-    <main className="min-h-screen bg-gray-50">
+    <>
+      <StructuredData
+        faqs={faqs}
+        pageUrl={pageUrl}
+        pageTitle={pageTitle}
+        pageDescription={pageDescription}
+        isAiPlanner={true}
+      />
+      <main className="min-h-screen bg-gray-50">
       {/* Back to Wanderly */}
       <div className="mx-auto max-w-7xl px-6 pt-8">
         <Link
@@ -274,5 +328,6 @@ export default async function AIPlannerPage() {
         </div>
       </section>
     </main>
+    </>
   );
 }

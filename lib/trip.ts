@@ -1,3 +1,8 @@
+export type FAQItem = {
+  question: string;
+  answer: string;
+};
+
 export type TripItem = {
   id: string;
   day: number;
