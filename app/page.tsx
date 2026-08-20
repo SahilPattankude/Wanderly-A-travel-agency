@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import nextDynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import PopularDestinations from "@/components/PopularDestinations";
-import InteractiveMap from "@/components/InteractiveMap";
-import HotelsActivities from "@/components/HotelsActivities";
-import ItineraryBuilder from "@/components/ItineraryBuilder";
-import Reviews from "@/components/Reviews";
-import TravelGuides from "@/components/TravelGuides";
-import Testimonials from "@/components/Testimonials";
-import FAQ from "@/components/FAQ";
-import CTA from "@/components/CTA";
+
+const PopularDestinations = nextDynamic(() => import("@/components/PopularDestinations"));
+const InteractiveMap = nextDynamic(() => import("@/components/InteractiveMap"));
+const HotelsActivities = nextDynamic(() => import("@/components/HotelsActivities"));
+const ItineraryBuilder = nextDynamic(() => import("@/components/ItineraryBuilder"));
+const Reviews = nextDynamic(() => import("@/components/Reviews"));
+const TravelGuides = nextDynamic(() => import("@/components/TravelGuides"));
+const Testimonials = nextDynamic(() => import("@/components/Testimonials"));
+const FAQ = nextDynamic(() => import("@/components/FAQ"));
+const CTA = nextDynamic(() => import("@/components/CTA"));
 import Footer from "@/components/Footer";
 import { getAllPosts } from "@/lib/blogs";
 import { guides } from "@/lib/data";

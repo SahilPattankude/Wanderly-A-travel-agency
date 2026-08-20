@@ -97,7 +97,7 @@ export default async function AIPlannerPage() {
         pageDescription={pageDescription}
         isAiPlanner={true}
       />
-      <main className="min-h-screen bg-gray-50">
+      <main id="main-content" className="min-h-screen bg-gray-50">
       {/* Back to Wanderly */}
       <div className="mx-auto max-w-7xl px-6 pt-8">
         <Link

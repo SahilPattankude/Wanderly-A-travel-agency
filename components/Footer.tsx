@@ -57,11 +57,16 @@ export default function Footer() {
               place built for people who love going somewhere new.
             </p>
             <div className="mt-6 flex items-center gap-3">
-              {[Instagram, Twitter, Facebook, Youtube].map((Icon, i) => (
+              {[
+                { Icon: Instagram, label: "Wanderly on Instagram" },
+                { Icon: Twitter, label: "Wanderly on Twitter" },
+                { Icon: Facebook, label: "Wanderly on Facebook" },
+                { Icon: Youtube, label: "Wanderly on YouTube" },
+              ].map(({ Icon, label }, i) => (
                 <a
                   key={i}
                   href="mailto:hello@wanderly.example?subject=Social%20media"
-                  aria-label="Wanderly on social media"
+                  aria-label={label}
                   className="h-9 w-9 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
                 >
                   <Icon className="h-4 w-4" aria-hidden="true" />

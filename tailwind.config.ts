@@ -63,9 +63,6 @@ const config: Config = {
           "0%, 100%": { transform: "translateY(0px) rotate(-2deg)" },
           "50%": { transform: "translateY(-14px) rotate(2deg)" },
         },
-        "dash-move": {
-          to: { strokeDashoffset: "-200" },
-        },
         "pulse-ring": {
           "0%": { transform: "scale(0.9)", opacity: "0.9" },
           "70%": { transform: "scale(1.9)", opacity: "0" },
@@ -82,7 +79,6 @@ const config: Config = {
       },
       animation: {
         floaty: "floaty 6s ease-in-out infinite",
-        "dash-move": "dash-move 12s linear infinite",
         "pulse-ring": "pulse-ring 2.4s cubic-bezier(0.4,0,0.6,1) infinite",
         shimmer: "shimmer 2.5s infinite linear",
         marquee: "marquee 28s linear infinite",

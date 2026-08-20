@@ -99,7 +99,8 @@ export default function PopularDestinations() {
                 <Image
                   src={d.image}
                   fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 389px"
+                  quality={70}
                   alt={`${d.name}, ${d.country}`}
                   
                   className="object-cover transition-transform duration-700 group-hover:scale-110"

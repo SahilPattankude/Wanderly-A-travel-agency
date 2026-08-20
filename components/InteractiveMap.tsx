@@ -102,7 +102,6 @@ export default function InteractiveMap() {
                     strokeWidth="0.3"
                     strokeDasharray="0.6 1.4"
                     fill="none"
-                    className="animate-dash-move"
                   />
                 );
               })}
@@ -170,7 +169,8 @@ export default function InteractiveMap() {
                   src={activeDestination.image}
                   alt={`${activeDestination.name}, ${activeDestination.country}`}
                   fill
-                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  sizes="(max-width: 1024px) 100vw, 533px"
+                  quality={70}
                   className="object-cover"
                 />
 

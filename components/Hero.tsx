@@ -229,6 +229,10 @@ export default function Hero() {
                         setShowDropdown(true);
                       }}
                       onFocus={() => setShowDropdown(true)}
+                      role="combobox"
+                      aria-autocomplete="list"
+                      aria-expanded={showDropdown}
+                      aria-controls="destination-listbox"
                       className="w-full bg-transparent text-sm font-semibold text-ink-700 outline-none"
                       aria-label="Destination city"
                       placeholder="Search destination..."
@@ -239,6 +243,9 @@ export default function Hero() {
                 <AnimatePresence>
                   {showDropdown && (
                     <motion.div
+                      id="destination-listbox"
+                      role="listbox"
+                      aria-label="Destination suggestions"
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
@@ -249,6 +256,8 @@ export default function Hero() {
                           <button
                             key={destination.id}
                             type="button"
+                            role="option"
+                            aria-selected={to === `${destination.name} (${destination.code})`}
                             onClick={() => {
                               setTo(
                                 `${destination.name} (${destination.code})`,
@@ -371,10 +380,7 @@ export default function Hero() {
 
         {/* Signature flight-path visual */}
         <div className="relative h-[420px] sm:h-[480px]" aria-hidden="true">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7 }}
+          <div
             className="absolute inset-0 overflow-hidden rounded-4xl shadow-lift"
           >
             <Image
@@ -382,12 +388,13 @@ export default function Hero() {
               alt="Travel destination landscape"
               fill
               priority
-              sizes="(max-width: 1024px) 100vw, 50vw"
+              sizes="(max-width: 1024px) 100vw, (max-width: 1280px) 50vw, 576px"
+              quality={75}
               className="object-cover"
             />
 
             <div className="absolute inset-0 bg-gradient-to-t from-ink-800/50 via-ink-800/0 to-transparent" />
-          </motion.div>
+          </div>
 
           {/* Flight route */}
           <svg
@@ -403,7 +410,6 @@ export default function Hero() {
               strokeWidth="2.5"
               strokeDasharray="2 10"
               strokeLinecap="round"
-              className="animate-dash-move"
             />
 
             <circle cx="40" cy="400" r="6" fill="#FF7A45" />

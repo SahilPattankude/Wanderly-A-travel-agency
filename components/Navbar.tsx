@@ -148,6 +148,7 @@ export default function Navbar() {
                 type="button"
                 onClick={() => setProfileOpen((value) => !value)}
                 aria-expanded={profileOpen}
+                aria-controls="profile-menu"
                 aria-haspopup="menu"
                 className="group flex items-center gap-2 rounded-full border border-ocean-500/15 bg-white/80 py-1 pl-1 pr-3 shadow-sm transition-colors hover:border-ocean-500/40 hover:bg-ocean-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean-500 focus-visible:ring-offset-2"
                 title={user.email}
@@ -174,6 +175,7 @@ export default function Navbar() {
               <AnimatePresence>
                 {profileOpen && (
                   <motion.div
+                    id="profile-menu"
                     initial={{ opacity: 0, y: -6, scale: 0.98 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -6, scale: 0.98 }}
